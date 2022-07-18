@@ -3,6 +3,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.discovery import build
 import os
 from dotenv import load_dotenv
+import datetime
+import calendar
 
 # 環境変数読み込み
 load_dotenv(".env")
@@ -17,6 +19,14 @@ VIEW_ID = os.environ.get("VIEW_ID")
 # active_users = service.data().realtime().get(
 #     ids="ga:" + VIEW_ID, metrics="rt:activeUsers").execute()
 # pprint.pprint(active_users)
+
+# 取得するレポートの範囲(日付)
+# 2022年1月
+year = 2022
+month = 1
+endDate = calendar.monthrange(year, month)[1]
+report_startDate = datetime.date(year, month, 1)
+report_endDate = datetime.date(year, month, endDate)
 
 
 def initialize_analyticsreporting():
@@ -48,7 +58,8 @@ def get_report(analytics):
             'reportRequests': [
                 {
                     'viewId': VIEW_ID,
-                    'dateRanges': [{'startDate': '7daysAgo', 'endDate': 'today'}],
+                    # 'dateRanges': [{'startDate': '7daysAgo', 'endDate': 'today'}],
+                    'dateRanges': [{'startDate': f"{report_startDate}", 'endDate': f"{report_endDate}"}],
                     'metrics': [{'expression': 'ga:sessions'}],
                     'dimensions': [{'name': 'ga:country'}]
                 }]
