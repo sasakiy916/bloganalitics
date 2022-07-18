@@ -62,7 +62,8 @@ def get_report(analytics):
                     'viewId': VIEW_ID,
                     # 'dateRanges': [{'startDate': '7daysAgo', 'endDate': 'today'}],
                     'dateRanges': [{'startDate': f"{report_startDate}", 'endDate': f"{report_endDate}"}],
-                    'metrics': [{'expression': 'ga:sessions'}],
+                    # 'metrics': [{'expression': 'ga:sessions'}],
+                    'metrics': [{'expression': 'ga:pageviews'}],
                     'dimensions': [{'name': 'ga:country'}]
                 }]
         }
