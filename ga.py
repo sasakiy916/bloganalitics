@@ -22,8 +22,10 @@ VIEW_ID = os.environ.get("VIEW_ID")
 
 # 取得するレポートの範囲(日付)
 # 2022年1月
-year = 2022
-month = 1
+# year = 2022
+year = 2016
+# month = 1
+month = 3
 endDate = calendar.monthrange(year, month)[1]
 report_startDate = datetime.date(year, month, 1)
 report_endDate = datetime.date(year, month, endDate)
@@ -86,14 +88,17 @@ def print_response(response):
             # 日本からのセッション数のみ取得
             for header, dimension in zip(dimensionHeaders, dimensions):
                 if dimension == "Japan":
-                    print(header + ': ' + dimension)
+                    print(f"年月:{year}年{month}月")  # 年月表示
+                    # print(header + ': ' + dimension)
+                    print('国 : ' + dimension)
 
             # セッション数表示 国ごと
             for i, values in enumerate(dateRangeValues):
                 if dimension == "Japan":
-                    print('Date range: ' + str(i))
+                    # print('Date range: ' + str(i))
                     for metricHeader, value in zip(metricHeaders, values.get('values')):
-                        print(metricHeader.get('name') + ': ' + value)
+                        # print(metricHeader.get('name') + ': ' + value)
+                        print('合計セッション数 : ' + value)
 
 
 def main():
